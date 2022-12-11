@@ -5,29 +5,34 @@
         static void Main(string[] args)
         {
             Tabuleiros tabuleiroManager = new Tabuleiros();
-            bool vencedor = false;
+            bool decidindoNavios = true;
+            Console.WriteLine("Desejam jogar com quantos navios?");
+            int quantNavios = int.Parse(Console.ReadLine());
             do
             {
-                Console.Clear();
-                Console.WriteLine($"\tJogador {tabuleiroManager.jogadorAtual}");
                 DesenhaTabuleiro(tabuleiroManager);
-                Console.WriteLine($"Jogador {tabuleiroManager.jogadorAtual} pronto? Clique qualquer botão para continuar");
                 Console.ReadKey();
-                int quantidadeNavios = 3;
+                int quantidadeNavios = quantNavios;
                 do
                 {
                     Console.WriteLine("Primeiro decida a posição de seus navios! Digite número e letra (ex: 1A)");
                     string posicaoNavio = Console.ReadLine();
-
+                    tabuleiroManager.adicionaNavio(int.Parse(posicaoNavio.Substring(0, 1)) - 1, posicaoLetra(posicaoNavio.Substring(1, 1)));
+                    DesenhaTabuleiro(tabuleiroManager);
+                    quantidadeNavios--;
                 } while (quantidadeNavios > 0);
-                
-            } while (!vencedor);
+
+                if (tabuleiroManager.jogadorAtual == 1) tabuleiroManager.jogadorAtual = 2;
+                else decidindoNavios = false;
+            } while (decidindoNavios);
             
         }
 
         static void DesenhaTabuleiro(Tabuleiros tabuleiroManager)
         {
             int escreve = 1;
+            Console.Clear();
+            Console.WriteLine($"\tJogador {tabuleiroManager.jogadorAtual}");
             Console.WriteLine("   A   B   C   D   E   F   G   H");
             foreach (Navio i in tabuleiroManager.getTabuleiroAtual())
             {
@@ -42,10 +47,11 @@
                 }
                 escreve++;
             }
+            Console.WriteLine($"Jogador {tabuleiroManager.jogadorAtual} pronto? Clique qualquer botão para continuar");
         }
 
 
-        public int posicaoLetra(string letra)
+        static int posicaoLetra(string letra)
         {
             string alfabeto = "abcdefghijklmnopqrstuvwxyz";
             int index = alfabeto.IndexOf(letra.ToLower());

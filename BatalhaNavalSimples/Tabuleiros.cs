@@ -16,7 +16,7 @@ namespace BatalhaNavalSimples
 
         public void adicionaNavio(int posicao1, int posicao2)
         {
-            getTabuleiroAtual()[posicao1, posicao2] = new Navio();
+            getTabuleiroAtual()[posicao1, posicao2] = new Navio(100);
         }
 
         public Navio[,] getTabuleiroAtual()

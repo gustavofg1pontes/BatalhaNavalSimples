@@ -8,16 +8,11 @@ namespace BatalhaNavalSimples
 {
     public class Navio
     {
-        public Navio(int x, int y, int length) {
-            X = x;
-            Y = y;
-            Length = length;
+        public Navio(int vida) {
+            Vida = vida;
         }
         public Navio() { }
 
-
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Length { get; set; }
+        public int Vida { get; set; }
     }
 }
